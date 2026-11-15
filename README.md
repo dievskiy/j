@@ -31,12 +31,15 @@ the three run means; delivery rate in brackets.
 | Policy | Rover | Winch | All |
 |---|---|---|---|
 | Reference (scripted, same MCP tools) | 0.716 (100%) | 0.777 (100%) | **0.748** (100%) |
-| DeepSeek 4.1 Flash, 3 runs | [TBD] | [TBD] | [TBD] |
-| Inkling, 3 runs | [TBD] | [TBD] | [TBD] |
+| DeepSeek 4.1 Flash, 3 runs | 0.411 ± 0.064 (58%) | 0.259 ± 0.062 (32%) | **0.332 ± 0.053** (45%) |
+| Inkling, 3 runs | 0.099 ± 0.030 (15%) | 0.066 ± 0.027 (9%) | **0.082 ± 0.006** (12%) |
 | Do-nothing (Harbor `nop`) | 0 | 0 | **0** |
 | Stop-early: finish at once / reference cut at half its actions | 0 | 0 | **0** (0/75 nonzero) |
 
-Why the agents fall short: [`presentation/analysis.md`](presentation/analysis.md).
+Every run of both models is far below the reference (run means: DeepSeek 0.372, 0.271,
+0.352; Inkling 0.075, 0.085, 0.085). 21 trials that hit API rate limits before finishing
+were rerun and are excluded. Why the agents fall short:
+[`presentation/analysis.md`](presentation/analysis.md).
 
 ## Reproduce
 

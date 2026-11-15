@@ -1,0 +1,527 @@
+[
+ {
+  "task": "rover-serpentine-seed90000",
+  "env": "rover",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 10
+ },
+ {
+  "task": "rover-serpentine-seed90001",
+  "env": "rover",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 17
+ },
+ {
+  "task": "rover-serpentine-seed90002",
+  "env": "rover",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 10
+ },
+ {
+  "task": "rover-serpentine-seed90003",
+  "env": "rover",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 17
+ },
+ {
+  "task": "rover-fork_mud_ice-seed90000",
+  "env": "rover",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 18
+ },
+ {
+  "task": "rover-fork_mud_ice-seed90002",
+  "env": "rover",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 14
+ },
+ {
+  "task": "rover-fork_mud_ice-seed90001",
+  "env": "rover",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 17
+ },
+ {
+  "task": "rover-fork_mud_ice-seed90003",
+  "env": "rover",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 14
+ },
+ {
+  "task": "rover-fork_wind_mud-seed90000",
+  "env": "rover",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 20
+ },
+ {
+  "task": "rover-fork_wind_mud-seed90004",
+  "env": "rover",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 16
+ },
+ {
+  "task": "rover-fork_wind_mud-seed90001",
+  "env": "rover",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 20
+ },
+ {
+  "task": "rover-fork_wind_mud-seed90005",
+  "env": "rover",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 16
+ },
+ {
+  "task": "rover-fork_crate_ice-seed90000",
+  "env": "rover",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 7
+ },
+ {
+  "task": "rover-fork_crate_ice-seed90003",
+  "env": "rover",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 9
+ },
+ {
+  "task": "rover-fork_crate_ice-seed90001",
+  "env": "rover",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 7
+ },
+ {
+  "task": "rover-fork_crate_ice-seed90004",
+  "env": "rover",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 9
+ },
+ {
+  "task": "rover-fork_barrier_mud-seed90000",
+  "env": "rover",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 14
+ },
+ {
+  "task": "rover-fork_barrier_mud-seed90006",
+  "env": "rover",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 17
+ },
+ {
+  "task": "rover-fork_barrier_mud-seed90001",
+  "env": "rover",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 14
+ },
+ {
+  "task": "rover-fork_barrier_mud-seed90010",
+  "env": "rover",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 17
+ },
+ {
+  "task": "rover-fork_crate_wind-seed90000",
+  "env": "rover",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 9
+ },
+ {
+  "task": "rover-fork_crate_wind-seed90006",
+  "env": "rover",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 7
+ },
+ {
+  "task": "rover-fork_crate_wind-seed90001",
+  "env": "rover",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 9
+ },
+ {
+  "task": "rover-fork_crate_wind-seed90008",
+  "env": "rover",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 7
+ },
+ {
+  "task": "rover-fork_mud_ice_wind-seed90000",
+  "env": "rover",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 30
+ },
+ {
+  "task": "rover-fork_mud_ice_wind-seed90004",
+  "env": "rover",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 14
+ },
+ {
+  "task": "rover-fork_mud_ice_wind-seed90008",
+  "env": "rover",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 30
+ },
+ {
+  "task": "rover-fork_mud_ice_wind-seed90001",
+  "env": "rover",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 30
+ },
+ {
+  "task": "rover-fork_crate_barrier_mud-seed90000",
+  "env": "rover",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 7
+ },
+ {
+  "task": "rover-fork_crate_barrier_mud-seed90001",
+  "env": "rover",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 10
+ },
+ {
+  "task": "rover-fork_crate_barrier_mud-seed90003",
+  "env": "rover",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 10
+ },
+ {
+  "task": "rover-fork_crate_barrier_mud-seed90015",
+  "env": "rover",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 7
+ },
+ {
+  "task": "rover-fork_replan-seed90000",
+  "env": "rover",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 17
+ },
+ {
+  "task": "rover-fork_replan-seed90001",
+  "env": "rover",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 22
+ },
+ {
+  "task": "rover-fork_replan-seed90002",
+  "env": "rover",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 19
+ },
+ {
+  "task": "rover-fork_replan-seed90005",
+  "env": "rover",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 20
+ },
+ {
+  "task": "winch-seed90000",
+  "env": "winch",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 17
+ },
+ {
+  "task": "winch-seed90002",
+  "env": "winch",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 25
+ },
+ {
+  "task": "winch-seed90001",
+  "env": "winch",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 32
+ },
+ {
+  "task": "winch-short_pair-seed90000",
+  "env": "winch",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 30
+ },
+ {
+  "task": "winch-short_pair-seed90003",
+  "env": "winch",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 26
+ },
+ {
+  "task": "winch-short_pair-seed90001",
+  "env": "winch",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 23
+ },
+ {
+  "task": "winch-high_stack-seed90000",
+  "env": "winch",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 28
+ },
+ {
+  "task": "winch-high_stack-seed90005",
+  "env": "winch",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 15
+ },
+ {
+  "task": "winch-high_stack-seed90001",
+  "env": "winch",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 15
+ },
+ {
+  "task": "winch-left_bank-seed90000",
+  "env": "winch",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 22
+ },
+ {
+  "task": "winch-left_bank-seed90005",
+  "env": "winch",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 32
+ },
+ {
+  "task": "winch-left_bank-seed90001",
+  "env": "winch",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 32
+ },
+ {
+  "task": "winch-crowded-seed90000",
+  "env": "winch",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 17
+ },
+ {
+  "task": "winch-crowded-seed90001",
+  "env": "winch",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 43
+ },
+ {
+  "task": "winch-crowded-seed90006",
+  "env": "winch",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 25
+ },
+ {
+  "task": "winch-five_way-seed90000",
+  "env": "winch",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 21
+ },
+ {
+  "task": "winch-five_way-seed90003",
+  "env": "winch",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 47
+ },
+ {
+  "task": "winch-five_way-seed90001",
+  "env": "winch",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 42
+ },
+ {
+  "task": "winch-barrier-seed90000",
+  "env": "winch",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 29
+ },
+ {
+  "task": "winch-barrier-seed90005",
+  "env": "winch",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 15
+ },
+ {
+  "task": "winch-barrier-seed90001",
+  "env": "winch",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 15
+ },
+ {
+  "task": "winch-weight_window-seed90000",
+  "env": "winch",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 33
+ },
+ {
+  "task": "winch-weight_window-seed90005",
+  "env": "winch",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 19
+ },
+ {
+  "task": "winch-weight_window-seed90001",
+  "env": "winch",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 19
+ },
+ {
+  "task": "winch-heaviest-seed90000",
+  "env": "winch",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 42
+ },
+ {
+  "task": "winch-heaviest-seed90005",
+  "env": "winch",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 44
+ },
+ {
+  "task": "winch-heaviest-seed90001",
+  "env": "winch",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 45
+ },
+ {
+  "task": "winch-gain_reference-seed90000",
+  "env": "winch",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 41
+ },
+ {
+  "task": "winch-gain_reference-seed90005",
+  "env": "winch",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 26
+ },
+ {
+  "task": "winch-gain_reference-seed90001",
+  "env": "winch",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 24
+ },
+ {
+  "task": "winch-total_payload-seed90000",
+  "env": "winch",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 45
+ },
+ {
+  "task": "winch-total_payload-seed90001",
+  "env": "winch",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 44
+ },
+ {
+  "task": "winch-total_payload-seed90006",
+  "env": "winch",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 47
+ },
+ {
+  "task": "winch-worn_cable-seed90000",
+  "env": "winch",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 47
+ },
+ {
+  "task": "winch-worn_cable-seed90001",
+  "env": "winch",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 61
+ },
+ {
+  "task": "winch-worn_cable-seed90003",
+  "env": "winch",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 46
+ },
+ {
+  "task": "winch-stuck_crate-seed90000",
+  "env": "winch",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 62
+ },
+ {
+  "task": "winch-stuck_crate-seed90002",
+  "env": "winch",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 32
+ },
+ {
+  "task": "winch-stuck_crate-seed90005",
+  "env": "winch",
+  "finish_at_once": 0.0,
+  "reference_cut_short": 0.0,
+  "reference_actions": 19
+ }
+]
