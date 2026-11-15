@@ -1,11 +1,11 @@
-# Physical simulation environments for LLMs
+# Test before you commit: physical-diagnosis environments for agents
 
-Agents must actively test an uncertain physical system, at a cost proportional to the
-stakes, and then act on what the test showed. Each episode hides a physical property
+Agents must **actively test an uncertain physical system, at a cost proportional to the
+stakes, and then act on what the test showed**. Each episode hides a physical property
 that changes the right action. A cheap test reveals it, and the budgets fit the right
 action plus testing, but not a blind gamble followed by a retreat.
 
-In this repo we have two MuJoCo environments, served to the agent over MCP and run with
+Two MuJoCo environment families, served to the agent over MCP and run with
 [Harbor](https://github.com/laude-institute/harbor) + OpenCode:
 
 | Environment | Task | Hidden | Cheap test |
@@ -109,6 +109,58 @@ the agent acted (Docker errors, agent install timeouts, API rate limits), listin
 Without Harbor, the scripted tables in `ENVIRONMENTS.md` reproduce with
 `.venv/bin/python -m rover_env.evaluate --course <course> --seeds 40` and
 `.venv/bin/python -m winch_env.evaluate --seeds 72`.
+
+## Stack and infrastructure
+
+| Layer | What we used |
+|---|---|
+| Simulation | MuJoCo 4.0.1, Python 3.14; one episode per container, served over MCP (`mcp` 2.3.0, streamable HTTP) |
+| Harness | Harbor 0.26.0 with the OpenCode 1.19.5 agent (Node 22); simulator in a sidecar container, verifier reads a read-only result volume |
+| Frontier models | **Inkling** (`thinkingmachines/Inkling-NVFP4`) on a **Modal** endpoint; **DeepSeek 4.1 Flash** through **Verda**'s OpenAI-compatible inference API |
+| Compute | two **Verda** GPU VMs (22 vCPU, 117 GB RAM, one A100 80 GB each): Harbor trials on both, local vLLM serving |
+| Smaller model | Qwen3.6-27B: vLLM 0.32 serving (first on Modal H100, then on the A100s), LoRA training on a **Modal H200**, Modal volumes for weights and adapters |
+
+### How we used Modal
+
+- **Inkling endpoint.** Inkling-NVFP4 behind an OpenAI-compatible Modal endpoint, used as
+  the frontier agent. Under about 20 concurrent sessions it returned rate-limit errors (21
+  of 450 trials across both models); those trials were rerun at concurrency 4 and are
+  excluded from results as infrastructure failures.
+- **Qwen serving (`finetune/modal_serve.py`).** vLLM in a `@modal.web_server` function on
+  an H100, weights cached in a Modal volume, guarded by an API key held as a Modal secret.
+- **Qwen training (`finetune/rft_modal.py`).** One function per run on an H200 (141 GB),
+  which fits OpenCode prompts up to 40k tokens; it writes only the LoRA adapter to a volume,
+  and the merge runs locally to save GPU time.
+
+Issues on Modal and how we got around them:
+
+| Issue | Fix |
+|---|---|
+| The official vLLM Docker image failed Modal's Python detection | CUDA devel base image plus `pip install vllm==0.32.0` |
+| Requests waiting over ~150 s (cold start) came back as HTTP 303 | the logging proxy follows redirects |
+| vLLM crashed in FlashAttention-3 while capturing CUDA graphs at startup | `--attention-backend FLASHINFER` on every server |
+| FLA's linear-attention backward refuses Triton 3.6 on Hopper (wrong gradients) | `tilelang` backend, which needs `nvcc`, so a CUDA devel image |
+| The tuned-server app could not import a shared module | `add_local_python_source` |
+| Limited credit | after training, serving and evaluation moved to the Verda A100s |
+
+### How we used Verda
+
+- **Inference API.** DeepSeek 4.1 Flash, 3 runs over the 75 tasks; one rate-limited trial
+  rerun, otherwise no errors.
+- **VMs.** All Harbor evaluation ran on two Verda A100 VMs: the second one took a third of
+  each model's runs and the Inkling reruns. Both A100s served Qwen with vLLM (untuned on
+  one, tuned on the other), so the paired comparison costs nothing but time.
+
+Issues on the VMs:
+
+| Issue | Fix |
+|---|---|
+| Docker ran out of network address pools at ~30 concurrent trials | `default-address-pools` 10.200.0.0/14 in /24s, `bip` pinned to keep 172.17.0.1 |
+| Each trial installed Node and OpenCode with apt/npm; 30 at once timed out | both preinstalled in the task image; Harbor then skips the install |
+| Rendering a video per trial pinned 22 cores (load 74) | evaluation tasks skip video; selected trials are replayed later |
+| Offline vLLM could not resolve the model name from the HF cache | serve from the pinned snapshot path |
+| FlashInfer compiles kernels on first use and needs `ninja` | `pip install ninja`, CUDA on `PATH` |
+| Harbor truncates long trial directory names | results read the task path from each trial's `config.json` |
 
 ## Layout
 
