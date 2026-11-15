@@ -1,0 +1,602 @@
+[
+ {
+  "env": "rover",
+  "course": "serpentine",
+  "variation": "",
+  "seed": 90000,
+  "regime": "shortcut_open",
+  "task": "rover-serpentine-seed90000"
+ },
+ {
+  "env": "rover",
+  "course": "serpentine",
+  "variation": "",
+  "seed": 90001,
+  "regime": "serpentine_open",
+  "task": "rover-serpentine-seed90001"
+ },
+ {
+  "env": "rover",
+  "course": "serpentine",
+  "variation": "",
+  "seed": 90002,
+  "regime": "shortcut_open",
+  "task": "rover-serpentine-seed90002"
+ },
+ {
+  "env": "rover",
+  "course": "serpentine",
+  "variation": "",
+  "seed": 90003,
+  "regime": "serpentine_open",
+  "task": "rover-serpentine-seed90003"
+ },
+ {
+  "env": "rover",
+  "course": "fork_mud_ice",
+  "variation": "",
+  "seed": 90000,
+  "regime": "ice_open",
+  "task": "rover-fork_mud_ice-seed90000"
+ },
+ {
+  "env": "rover",
+  "course": "fork_mud_ice",
+  "variation": "",
+  "seed": 90002,
+  "regime": "mud_open",
+  "task": "rover-fork_mud_ice-seed90002"
+ },
+ {
+  "env": "rover",
+  "course": "fork_mud_ice",
+  "variation": "",
+  "seed": 90001,
+  "regime": "ice_open",
+  "task": "rover-fork_mud_ice-seed90001"
+ },
+ {
+  "env": "rover",
+  "course": "fork_mud_ice",
+  "variation": "",
+  "seed": 90003,
+  "regime": "mud_open",
+  "task": "rover-fork_mud_ice-seed90003"
+ },
+ {
+  "env": "rover",
+  "course": "fork_wind_mud",
+  "variation": "",
+  "seed": 90000,
+  "regime": "wind_open",
+  "task": "rover-fork_wind_mud-seed90000"
+ },
+ {
+  "env": "rover",
+  "course": "fork_wind_mud",
+  "variation": "",
+  "seed": 90004,
+  "regime": "mud_open",
+  "task": "rover-fork_wind_mud-seed90004"
+ },
+ {
+  "env": "rover",
+  "course": "fork_wind_mud",
+  "variation": "",
+  "seed": 90001,
+  "regime": "wind_open",
+  "task": "rover-fork_wind_mud-seed90001"
+ },
+ {
+  "env": "rover",
+  "course": "fork_wind_mud",
+  "variation": "",
+  "seed": 90005,
+  "regime": "mud_open",
+  "task": "rover-fork_wind_mud-seed90005"
+ },
+ {
+  "env": "rover",
+  "course": "fork_crate_ice",
+  "variation": "",
+  "seed": 90000,
+  "regime": "crate_open",
+  "task": "rover-fork_crate_ice-seed90000"
+ },
+ {
+  "env": "rover",
+  "course": "fork_crate_ice",
+  "variation": "",
+  "seed": 90003,
+  "regime": "ice_open",
+  "task": "rover-fork_crate_ice-seed90003"
+ },
+ {
+  "env": "rover",
+  "course": "fork_crate_ice",
+  "variation": "",
+  "seed": 90001,
+  "regime": "crate_open",
+  "task": "rover-fork_crate_ice-seed90001"
+ },
+ {
+  "env": "rover",
+  "course": "fork_crate_ice",
+  "variation": "",
+  "seed": 90004,
+  "regime": "ice_open",
+  "task": "rover-fork_crate_ice-seed90004"
+ },
+ {
+  "env": "rover",
+  "course": "fork_barrier_mud",
+  "variation": "",
+  "seed": 90000,
+  "regime": "mud_open",
+  "task": "rover-fork_barrier_mud-seed90000"
+ },
+ {
+  "env": "rover",
+  "course": "fork_barrier_mud",
+  "variation": "",
+  "seed": 90006,
+  "regime": "barrier_open",
+  "task": "rover-fork_barrier_mud-seed90006"
+ },
+ {
+  "env": "rover",
+  "course": "fork_barrier_mud",
+  "variation": "",
+  "seed": 90001,
+  "regime": "mud_open",
+  "task": "rover-fork_barrier_mud-seed90001"
+ },
+ {
+  "env": "rover",
+  "course": "fork_barrier_mud",
+  "variation": "",
+  "seed": 90010,
+  "regime": "barrier_open",
+  "task": "rover-fork_barrier_mud-seed90010"
+ },
+ {
+  "env": "rover",
+  "course": "fork_crate_wind",
+  "variation": "",
+  "seed": 90000,
+  "regime": "wind_open",
+  "task": "rover-fork_crate_wind-seed90000"
+ },
+ {
+  "env": "rover",
+  "course": "fork_crate_wind",
+  "variation": "",
+  "seed": 90006,
+  "regime": "crate_open",
+  "task": "rover-fork_crate_wind-seed90006"
+ },
+ {
+  "env": "rover",
+  "course": "fork_crate_wind",
+  "variation": "",
+  "seed": 90001,
+  "regime": "wind_open",
+  "task": "rover-fork_crate_wind-seed90001"
+ },
+ {
+  "env": "rover",
+  "course": "fork_crate_wind",
+  "variation": "",
+  "seed": 90008,
+  "regime": "crate_open",
+  "task": "rover-fork_crate_wind-seed90008"
+ },
+ {
+  "env": "rover",
+  "course": "fork_mud_ice_wind",
+  "variation": "",
+  "seed": 90000,
+  "regime": "ice_open",
+  "task": "rover-fork_mud_ice_wind-seed90000"
+ },
+ {
+  "env": "rover",
+  "course": "fork_mud_ice_wind",
+  "variation": "",
+  "seed": 90004,
+  "regime": "mud_open",
+  "task": "rover-fork_mud_ice_wind-seed90004"
+ },
+ {
+  "env": "rover",
+  "course": "fork_mud_ice_wind",
+  "variation": "",
+  "seed": 90008,
+  "regime": "wind_open",
+  "task": "rover-fork_mud_ice_wind-seed90008"
+ },
+ {
+  "env": "rover",
+  "course": "fork_mud_ice_wind",
+  "variation": "",
+  "seed": 90001,
+  "regime": "ice_open",
+  "task": "rover-fork_mud_ice_wind-seed90001"
+ },
+ {
+  "env": "rover",
+  "course": "fork_crate_barrier_mud",
+  "variation": "",
+  "seed": 90000,
+  "regime": "crate_open",
+  "task": "rover-fork_crate_barrier_mud-seed90000"
+ },
+ {
+  "env": "rover",
+  "course": "fork_crate_barrier_mud",
+  "variation": "",
+  "seed": 90001,
+  "regime": "mud_open",
+  "task": "rover-fork_crate_barrier_mud-seed90001"
+ },
+ {
+  "env": "rover",
+  "course": "fork_crate_barrier_mud",
+  "variation": "",
+  "seed": 90003,
+  "regime": "barrier_open",
+  "task": "rover-fork_crate_barrier_mud-seed90003"
+ },
+ {
+  "env": "rover",
+  "course": "fork_crate_barrier_mud",
+  "variation": "",
+  "seed": 90015,
+  "regime": "crate_open",
+  "task": "rover-fork_crate_barrier_mud-seed90015"
+ },
+ {
+  "env": "rover",
+  "course": "fork_replan",
+  "variation": "",
+  "seed": 90000,
+  "regime": "mud_open+crate_open",
+  "task": "rover-fork_replan-seed90000"
+ },
+ {
+  "env": "rover",
+  "course": "fork_replan",
+  "variation": "",
+  "seed": 90001,
+  "regime": "ice_open+barrier_open",
+  "task": "rover-fork_replan-seed90001"
+ },
+ {
+  "env": "rover",
+  "course": "fork_replan",
+  "variation": "",
+  "seed": 90002,
+  "regime": "mud_open+barrier_open",
+  "task": "rover-fork_replan-seed90002"
+ },
+ {
+  "env": "rover",
+  "course": "fork_replan",
+  "variation": "",
+  "seed": 90005,
+  "regime": "ice_open+crate_open",
+  "task": "rover-fork_replan-seed90005"
+ },
+ {
+  "env": "winch",
+  "course": "winch_yard",
+  "variation": "",
+  "seed": 90000,
+  "regime": "stiff",
+  "task": "winch-seed90000"
+ },
+ {
+  "env": "winch",
+  "course": "winch_yard",
+  "variation": "",
+  "seed": 90002,
+  "regime": "soft",
+  "task": "winch-seed90002"
+ },
+ {
+  "env": "winch",
+  "course": "winch_yard",
+  "variation": "",
+  "seed": 90001,
+  "regime": "stiff",
+  "task": "winch-seed90001"
+ },
+ {
+  "env": "winch",
+  "course": "winch_yard",
+  "variation": "short_pair",
+  "seed": 90000,
+  "regime": "soft",
+  "task": "winch-short_pair-seed90000"
+ },
+ {
+  "env": "winch",
+  "course": "winch_yard",
+  "variation": "short_pair",
+  "seed": 90003,
+  "regime": "stiff",
+  "task": "winch-short_pair-seed90003"
+ },
+ {
+  "env": "winch",
+  "course": "winch_yard",
+  "variation": "short_pair",
+  "seed": 90001,
+  "regime": "soft",
+  "task": "winch-short_pair-seed90001"
+ },
+ {
+  "env": "winch",
+  "course": "winch_yard",
+  "variation": "high_stack",
+  "seed": 90000,
+  "regime": "stiff",
+  "task": "winch-high_stack-seed90000"
+ },
+ {
+  "env": "winch",
+  "course": "winch_yard",
+  "variation": "high_stack",
+  "seed": 90005,
+  "regime": "soft",
+  "task": "winch-high_stack-seed90005"
+ },
+ {
+  "env": "winch",
+  "course": "winch_yard",
+  "variation": "high_stack",
+  "seed": 90001,
+  "regime": "stiff",
+  "task": "winch-high_stack-seed90001"
+ },
+ {
+  "env": "winch",
+  "course": "winch_yard",
+  "variation": "left_bank",
+  "seed": 90000,
+  "regime": "stiff",
+  "task": "winch-left_bank-seed90000"
+ },
+ {
+  "env": "winch",
+  "course": "winch_yard",
+  "variation": "left_bank",
+  "seed": 90005,
+  "regime": "soft",
+  "task": "winch-left_bank-seed90005"
+ },
+ {
+  "env": "winch",
+  "course": "winch_yard",
+  "variation": "left_bank",
+  "seed": 90001,
+  "regime": "stiff",
+  "task": "winch-left_bank-seed90001"
+ },
+ {
+  "env": "winch",
+  "course": "winch_yard",
+  "variation": "crowded",
+  "seed": 90000,
+  "regime": "stiff",
+  "task": "winch-crowded-seed90000"
+ },
+ {
+  "env": "winch",
+  "course": "winch_yard",
+  "variation": "crowded",
+  "seed": 90001,
+  "regime": "soft",
+  "task": "winch-crowded-seed90001"
+ },
+ {
+  "env": "winch",
+  "course": "winch_yard",
+  "variation": "crowded",
+  "seed": 90006,
+  "regime": "stiff",
+  "task": "winch-crowded-seed90006"
+ },
+ {
+  "env": "winch",
+  "course": "winch_yard",
+  "variation": "five_way",
+  "seed": 90000,
+  "regime": "soft",
+  "task": "winch-five_way-seed90000"
+ },
+ {
+  "env": "winch",
+  "course": "winch_yard",
+  "variation": "five_way",
+  "seed": 90003,
+  "regime": "stiff",
+  "task": "winch-five_way-seed90003"
+ },
+ {
+  "env": "winch",
+  "course": "winch_yard",
+  "variation": "five_way",
+  "seed": 90001,
+  "regime": "soft",
+  "task": "winch-five_way-seed90001"
+ },
+ {
+  "env": "winch",
+  "course": "winch_yard",
+  "variation": "barrier",
+  "seed": 90000,
+  "regime": "stiff",
+  "task": "winch-barrier-seed90000"
+ },
+ {
+  "env": "winch",
+  "course": "winch_yard",
+  "variation": "barrier",
+  "seed": 90005,
+  "regime": "soft",
+  "task": "winch-barrier-seed90005"
+ },
+ {
+  "env": "winch",
+  "course": "winch_yard",
+  "variation": "barrier",
+  "seed": 90001,
+  "regime": "stiff",
+  "task": "winch-barrier-seed90001"
+ },
+ {
+  "env": "winch",
+  "course": "winch_yard",
+  "variation": "weight_window",
+  "seed": 90000,
+  "regime": "stiff",
+  "task": "winch-weight_window-seed90000"
+ },
+ {
+  "env": "winch",
+  "course": "winch_yard",
+  "variation": "weight_window",
+  "seed": 90005,
+  "regime": "soft",
+  "task": "winch-weight_window-seed90005"
+ },
+ {
+  "env": "winch",
+  "course": "winch_yard",
+  "variation": "weight_window",
+  "seed": 90001,
+  "regime": "stiff",
+  "task": "winch-weight_window-seed90001"
+ },
+ {
+  "env": "winch",
+  "course": "winch_yard",
+  "variation": "heaviest",
+  "seed": 90000,
+  "regime": "stiff",
+  "task": "winch-heaviest-seed90000"
+ },
+ {
+  "env": "winch",
+  "course": "winch_yard",
+  "variation": "heaviest",
+  "seed": 90005,
+  "regime": "soft",
+  "task": "winch-heaviest-seed90005"
+ },
+ {
+  "env": "winch",
+  "course": "winch_yard",
+  "variation": "heaviest",
+  "seed": 90001,
+  "regime": "stiff",
+  "task": "winch-heaviest-seed90001"
+ },
+ {
+  "env": "winch",
+  "course": "winch_yard",
+  "variation": "gain_reference",
+  "seed": 90000,
+  "regime": "stiff",
+  "task": "winch-gain_reference-seed90000"
+ },
+ {
+  "env": "winch",
+  "course": "winch_yard",
+  "variation": "gain_reference",
+  "seed": 90005,
+  "regime": "soft",
+  "task": "winch-gain_reference-seed90005"
+ },
+ {
+  "env": "winch",
+  "course": "winch_yard",
+  "variation": "gain_reference",
+  "seed": 90001,
+  "regime": "stiff",
+  "task": "winch-gain_reference-seed90001"
+ },
+ {
+  "env": "winch",
+  "course": "winch_yard",
+  "variation": "total_payload",
+  "seed": 90000,
+  "regime": "stiff",
+  "task": "winch-total_payload-seed90000"
+ },
+ {
+  "env": "winch",
+  "course": "winch_yard",
+  "variation": "total_payload",
+  "seed": 90001,
+  "regime": "soft",
+  "task": "winch-total_payload-seed90001"
+ },
+ {
+  "env": "winch",
+  "course": "winch_yard",
+  "variation": "total_payload",
+  "seed": 90006,
+  "regime": "stiff",
+  "task": "winch-total_payload-seed90006"
+ },
+ {
+  "env": "winch",
+  "course": "winch_yard",
+  "variation": "worn_cable",
+  "seed": 90000,
+  "regime": "stiff_worn",
+  "task": "winch-worn_cable-seed90000"
+ },
+ {
+  "env": "winch",
+  "course": "winch_yard",
+  "variation": "worn_cable",
+  "seed": 90001,
+  "regime": "soft_intact",
+  "task": "winch-worn_cable-seed90001"
+ },
+ {
+  "env": "winch",
+  "course": "winch_yard",
+  "variation": "worn_cable",
+  "seed": 90003,
+  "regime": "soft_worn",
+  "task": "winch-worn_cable-seed90003"
+ },
+ {
+  "env": "winch",
+  "course": "winch_yard",
+  "variation": "stuck_crate",
+  "seed": 90000,
+  "regime": "stiff_stuck",
+  "task": "winch-stuck_crate-seed90000"
+ },
+ {
+  "env": "winch",
+  "course": "winch_yard",
+  "variation": "stuck_crate",
+  "seed": 90002,
+  "regime": "stiff_free",
+  "task": "winch-stuck_crate-seed90002"
+ },
+ {
+  "env": "winch",
+  "course": "winch_yard",
+  "variation": "stuck_crate",
+  "seed": 90005,
+  "regime": "soft_free",
+  "task": "winch-stuck_crate-seed90005"
+ }
+]
