@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Test before you commit: demo deck</title>
+<style>
+  :root { --bg: #05070b; --panel: #151b28; --line: #2a3345; --ink: #eef1f6; --ink2: #aab2c2; --muted: #7b869b; }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; background: var(--bg); color: var(--ink);
+    font-family: "DejaVu Sans", Verdana, "Helvetica Neue", Arial, sans-serif; overflow: hidden; }
+  #stage { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; }
+  body.notes #stage { bottom: var(--notes-height, 190px); }
+  .slide { display: none; max-width: 100%; max-height: 100%; aspect-ratio: 16 / 9; object-fit: contain;
+    cursor: pointer; user-select: none; }
+  .slide.current { display: block; }
+  #notes { display: none; position: fixed; left: 0; right: 0; bottom: 0; height: var(--notes-height, 190px);
+    background: var(--panel); border-top: 1px solid var(--line); padding: 16px 28px; overflow: auto; }
+  body.notes #notes { display: block; }
+  #notes .meta { color: var(--muted); font-size: 14px; letter-spacing: .04em; text-transform: uppercase; }
+  #notes p { margin: 8px 0 0; font-size: 21px; line-height: 1.45; max-width: 70em; color: var(--ink); }
+  #hud { position: fixed; top: 10px; right: 14px; font-size: 13px; color: var(--muted);
+    background: rgba(5, 7, 11, .7); padding: 4px 10px; border-radius: 6px; opacity: 0; transition: opacity .2s; }
+  body.hud #hud, body.playing #hud { opacity: 1; }
+  #help { position: fixed; left: 14px; top: 10px; font-size: 13px; color: var(--muted);
+    background: rgba(5, 7, 11, .7); padding: 4px 10px; border-radius: 6px; opacity: 0; transition: opacity .2s; }
+  body.hud #help { opacity: 1; }
+  @media print {
+    html, body { overflow: visible; height: auto; background: #0d1119; }
+    #stage { position: static; display: block; }
+    .slide { display: block !important; width: 100%; page-break-after: always; }
+    #notes, #hud, #help { display: none !important; }
+    @page { size: 1920px 1080px; margin: 0; }
+  }
+</style>
+</head>
+<body>
+  <main id="stage">
+    <img class="slide" src="assets/slides/slide_01.png" alt="Slide 1: Test, then act">
+    <img class="slide" src="assets/slides/slide_02.png" alt="Slide 2: Same map. Hidden physics. A cheap test. A fixed budget.">
+    <img class="slide" src="assets/slides/slide_03.png" alt="Slide 3: The agent touches the simulator only through tools">
+    <img class="slide" src="assets/slides/slide_04.png" alt="Slide 4: Every run lands far below the reference">
+    <img class="slide" src="assets/slides/slide_05.png" alt="Slide 5: Tests, then ignores the evidence">
+    <img class="slide" src="assets/slides/slide_06.png" alt="Slide 6: The test that breaks the thing it measures">
+    <img class="slide" src="assets/slides/slide_07.png" alt="Slide 7: Looking for a shortcut instead of solving the task">
+    <img class="slide" src="assets/slides/slide_08.png" alt="Slide 8: Not one-offs: the failures are decisions">
+    <img class="slide" src="assets/slides/slide_09.png" alt="Slide 9: Fine-tuning a smaller model did not help">
+    <img class="slide" src="assets/slides/slide_10.png" alt="Slide 10: Test before you commit">
+  </main>
+  <aside id="notes" aria-live="polite">
+    <div class="meta" id="notes-meta"></div>
+    <p id="notes-text"></p>
+  </aside>
+  <div id="help">← → move · n notes · t timed autoplay · f fullscreen</div>
+  <div id="hud"></div>
+<script>
+  const SLIDES = [{"image": "assets/slides/slide_01.png", "title": "Test, then act", "seconds": 8, "notes": "Frontier agents ace benchmarks. Put one in charge of an unfamiliar machine, and it must test before it acts."}, {"image": "assets/slides/slide_02.png", "title": "Same map. Hidden physics. A cheap test. A fixed budget.", "seconds": 14, "notes": "Two MuJoCo worlds. A rover must find the one passable lane; a hoist, the one liftable crate. The map never says which. A cheap test does, and the budget allows that test, not a wrong guess."}, {"image": "assets/slides/slide_03.png", "title": "The agent touches the simulator only through tools", "seconds": 10, "notes": "Agents reach the simulator only through MCP tools, under Harbor and OpenCode. Reward comes from simulator state alone. Doing nothing, or stopping early, scores zero."}, {"image": "assets/slides/slide_04.png", "title": "Every run lands far below the reference", "seconds": 12, "notes": "On seventy-five frozen tasks, our scripted reference, using the same tools, delivers every time. DeepSeek delivers forty-five percent. Inkling, twelve. Three runs each, and every run is far below the reference."}, {"image": "assets/slides/slide_05.png", "title": "Tests, then ignores the evidence", "seconds": 19, "notes": "Why? Same task, two agents. Inkling crawls across the mud sample for fifty seconds, decides it is not on mud, then drives into the mud lane and stalls. DeepSeek gets stuck on the same sample, calls the mud impassable, and takes the ice lane home."}, {"image": "assets/slides/slide_06.png", "title": "The test that breaks the thing it measures", "seconds": 17, "notes": "On the hoist, a careless test breaks what it measures. Inkling weighs a crate with one long pull. The tension stop is a trigger, not a cap, and the cable snaps in under two seconds. DeepSeek weighs in short pulls and delivers."}, {"image": "assets/slides/slide_07.png", "title": "Looking for a shortcut instead of solving the task", "seconds": 13, "notes": "After failing, Inkling hunts for a shortcut. It reads the result file, then opens a fresh session with curl. Same ended episode; read-only result. Nearly a thousand such calls, and none earned reward."}, {"image": "assets/slides/slide_08.png", "title": "Not one-offs: the failures are decisions", "seconds": 11, "notes": "These are not one-offs. After testing, DeepSeek enters the open lane ninety-four percent of the time; Inkling, sixty. Chance is forty-six. The map held everything they needed."}, {"image": "assets/slides/slide_09.png", "title": "Fine-tuning a smaller model did not help", "seconds": 9, "notes": "We also fine-tuned a small Qwen model on its own successful episodes. Honestly, it did not improve. A second round is being evaluated."}, {"image": "assets/slides/slide_10.png", "title": "Test before you commit", "seconds": 7, "notes": "One command reproduces all of it. Test before you commit: a gap that comes from decisions, not tricks."}];
+  const images = Array.from(document.querySelectorAll(".slide"));
+  let current = 0;
+  let timer = null;
+  let hudTimer = null;
+
+  function startTime(index) {
+    return SLIDES.slice(0, index).reduce((sum, slide) => sum + slide.seconds, 0);
+  }
+
+  function clock(seconds) {
+    return Math.floor(seconds / 60) + ":" + String(seconds % 60).padStart(2, "0");
+  }
+
+  function show(index) {
+    current = Math.max(0, Math.min(images.length - 1, index));
+    images.forEach((image, i) => image.classList.toggle("current", i === current));
+    const slide = SLIDES[current];
+    const start = startTime(current);
+    document.getElementById("notes-meta").textContent =
+      `Slide ${current + 1} of ${SLIDES.length} · ${slide.title} · ${clock(start)}–${clock(start + slide.seconds)} (${slide.seconds} s)`;
+    document.getElementById("notes-text").textContent = slide.notes;
+    document.getElementById("hud").textContent =
+      `${current + 1} / ${SLIDES.length} · ${slide.seconds} s` + (timer ? " · autoplay" : "");
+    history.replaceState(null, "", "#" + (current + 1));
+    flashHud();
+  }
+
+  function flashHud() {
+    document.body.classList.add("hud");
+    clearTimeout(hudTimer);
+    hudTimer = setTimeout(() => document.body.classList.remove("hud"), 1800);
+  }
+
+  function stopAutoplay() {
+    clearTimeout(timer);
+    timer = null;
+    document.body.classList.remove("playing");
+  }
+
+  function scheduleNext() {
+    timer = setTimeout(() => {
+      if (current === images.length - 1) { stopAutoplay(); show(current); return; }
+      show(current + 1);
+      scheduleNext();
+    }, SLIDES[current].seconds * 1000);
+  }
+
+  function toggleAutoplay() {
+    if (timer) { stopAutoplay(); show(current); return; }
+    document.body.classList.add("playing");
+    scheduleNext();
+    show(current);
+  }
+
+  document.addEventListener("keydown", (event) => {
+    const key = event.key;
+    if (["ArrowRight", "ArrowDown", "PageDown", " ", "Enter"].includes(key)) { stopAutoplay(); show(current + 1); }
+    else if (["ArrowLeft", "ArrowUp", "PageUp", "Backspace"].includes(key)) { stopAutoplay(); show(current - 1); }
+    else if (key === "Home") { stopAutoplay(); show(0); }
+    else if (key === "End") { stopAutoplay(); show(images.length - 1); }
+    else if (key === "n" || key === "N") { document.body.classList.toggle("notes"); }
+    else if (key === "t" || key === "T") { toggleAutoplay(); }
+    else if (key === "f" || key === "F") {
+      if (document.fullscreenElement) document.exitFullscreen(); else document.documentElement.requestFullscreen();
+    } else return;
+    event.preventDefault();
+  });
+  document.getElementById("stage").addEventListener("click", () => { stopAutoplay(); show(current + 1); });
+  window.addEventListener("hashchange", () => show((parseInt(location.hash.slice(1), 10) || 1) - 1));
+  show((parseInt(location.hash.slice(1), 10) || 1) - 1);
+</script>
+</body>
+</html>
