@@ -81,8 +81,6 @@ def slide_hook() -> Canvas:
     canvas.shade(0, 0, 1500, HEIGHT, BACKGROUND, 0.95, 0.0)
     canvas.fitted_text(MARGIN, 300, SLIDES[0].title, 110, INK, 1300)
     canvas.text(MARGIN, 450, "Can an agent test before it acts?", 46, INK)
-    canvas.rect(MARGIN, 910, 8, 60, fill=INKLING, radius=4)
-    canvas.text(MARGIN + 28, 922, "Inkling, stuck in the mud lane. Reward 0.", 27, INK_SECONDARY)
     return canvas
 
 
