@@ -1,15 +1,13 @@
-"""Facts shared by the deck's scripts: palette, the pending round-2 result, and each
-slide's narration, timing and sources. Edit here, then rerun make_charts.py and
+"""Facts shared by the deck's scripts: palette and each slide's narration, timing and
+sources. Edit here, then rerun make_charts.py and
 build_deck.py.
 """
 from __future__ import annotations
 
 from dataclasses import dataclass, field
 
-# Fine-tuning round 2 is still being evaluated. When it is in, set the mean reward
-# (a float, drawn as a bar) and the text shown on slide 9.
+# Mean reward of fine-tuning round 2. None hides it; a float adds a bar to slide 9.
 ROUND_2_MEAN: float | None = None
-ROUND_2_TEXT = "[ROUND 2: TBD]"
 
 BACKGROUND = "#0d1119"
 PANEL = "#151b28"
@@ -43,17 +41,17 @@ class Slide:
 
 SLIDES = (
     Slide(
-        "Test, then act", 8,
+        "LLMs in physical challenges", 8,
         "Frontier agents ace benchmarks. Put one in charge of an unfamiliar machine, and it "
         "must test before it acts.",
         ("rover_hero.jpg",),
         (f"{ROVER_INKLING}: replayed, frame at t = 86.5 s (after step 10, the last drive_to)",),
     ),
     Slide(
-        "Same map. Hidden physics. A cheap test. A fixed budget.", 14,
-        "Two MuJoCo worlds. A rover must find the one passable lane; a hoist, the one "
-        "liftable crate. The map never says which. A cheap test does, and the budget allows "
-        "that test, not a wrong guess.",
+        "75 maps over 2 environments", 14,
+        "Two MuJoCo worlds. A rover must find the one passable lane. A crane must find the "
+        "one liftable crate. The map never says which. A cheap test does, and the budget "
+        "allows that test, not a wrong guess.",
         ("rover_course.jpg", "winch_deepseek_2_carry.jpg"),
         (f"{ROVER_INKLING}: course at t = 0",
          f"{WINCH_DEEPSEEK}: frame at t = 26.5 s (step 17, move_trolley)",
@@ -65,7 +63,7 @@ SLIDES = (
         "Reward comes from simulator state alone. Doing nothing, or stopping early, scores "
         "zero.",
         ("harness.svg",),
-        ("README.md (Reward); results/stop_early.json; jobs/eval-do-nothing-*",),
+        ("README.md (Reward), results/stop_early.json, jobs/eval-do-nothing-*",),
     ),
     Slide(
         "Every run lands far below the reference", 12,
@@ -92,7 +90,7 @@ SLIDES = (
     ),
     Slide(
         "The test that breaks the thing it measures", 17,
-        "On the hoist, a careless test breaks what it measures. Inkling weighs a crate with "
+        "On the crane, a careless test breaks what it measures. Inkling weighs a crate with "
         "one long pull. The tension stop is a trigger, not a cap, and the cable snaps in "
         "under two seconds. DeepSeek weighs in short pulls and delivers.",
         ("winch_tension.svg", "winch_inkling_1_hooked.jpg", "winch_inkling_2_snapped.jpg",
@@ -106,8 +104,8 @@ SLIDES = (
     Slide(
         "Looking for a shortcut instead of solving the task", 13,
         "After failing, Inkling hunts for a shortcut. It reads the result file, then opens "
-        "a fresh session with curl. Same ended episode; read-only result. Nearly a thousand "
-        "such calls, and none earned reward.",
+        "a fresh session with curl. It finds the same ended episode and a read-only result. "
+        "Nearly a thousand such calls, and none earned reward.",
         ("exploit_crash.jpg",),
         (f"{EXPLOIT_INKLING}: trace from steps 22, 23, 34, 36, 39 and 41; frame at "
          "t = 39.64 s (step 11, the crash)",
@@ -116,7 +114,7 @@ SLIDES = (
     Slide(
         "Not one-offs: the failures are decisions", 11,
         "These are not one-offs. After testing, DeepSeek enters the open lane ninety-four "
-        "percent of the time; Inkling, sixty. Chance is forty-six. The map held everything "
+        "percent of the time. Inkling, sixty. Chance is forty-six. The map held everything "
         "they needed.",
         (),
         ("presentation/analysis.md: final numbers table; map quotes from get_map (step 2 of "
@@ -125,7 +123,7 @@ SLIDES = (
     Slide(
         "Fine-tuning a smaller model did not help", 9,
         "We also fine-tuned a small Qwen model on its own successful episodes. Honestly, it "
-        "did not improve. A second round is being evaluated.",
+        "did not improve.",
         ("qwen_finetune.svg",),
         ("README.md (Training a smaller model); finetune/README.md",),
     ),
@@ -133,7 +131,7 @@ SLIDES = (
         "Test before you commit", 7,
         "One command reproduces all of it. Test before you commit: a gap that comes from "
         "decisions, not tricks.",
-        ("rover_deepseek_3_goal.jpg",),
-        (f"{ROVER_DEEPSEEK}: frame at t = 59.36 s; README.md (Reproduce)",),
+        ("rover_closing.jpg",),
+        (f"{ROVER_DEEPSEEK}: frame at t = 59.36 s, cargo at rest in the goal circle",),
     ),
 )

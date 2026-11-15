@@ -20,7 +20,7 @@ STATES = DECK / "work" / "states"
 WORK = DECK / "work"
 
 from deck_data import (BASELINE, DEEPSEEK, GRID, INK, INK_MUTED, INK_SECONDARY, INKLING, PANEL,
-                       REFERENCE, ROUND_2_MEAN, ROUND_2_TEXT, TUNED)
+                       REFERENCE, ROUND_2_MEAN, TUNED)
 
 FONT = "'DejaVu Sans', Verdana, 'Helvetica Neue', Arial, sans-serif"
 MONO = "'JetBrains Mono', 'DejaVu Sans Mono', Menlo, Consolas, monospace"
@@ -44,7 +44,7 @@ RESULTS = [  # label, sublabel, mean, run means, delivery, colour
     ("DeepSeek 4.1 Flash", "3 runs × 75 tasks", 0.332, [0.372, 0.271, 0.352], "45% delivered", DEEPSEEK),
     ("Inkling", "3 runs × 75 tasks", 0.082, [0.075, 0.085, 0.085], "12% delivered", INKLING),
     ("Do-nothing", "Harbor nop agent", 0.0, [], "0 on all 75", BASELINE),
-    ("Stop-early", "finish at once / half the reference", 0.0, [], "0 on all 75", BASELINE),
+    ("Stop-early", "finish at once", 0.0, [], "0 on all 75", BASELINE),
 ]
 
 
@@ -193,13 +193,13 @@ def winch_tension_chart() -> str:
     body.append(line(inkling, INKLING))
     snap_t, snap_tension = max(inkling, key=lambda p: p[1])
     trip = next(p for p in inkling if p[1] >= 1800 - 110.5)           # reading = true tension + 110.5 N offset
-    for (t, tension), caption, dy in ((trip, "stop_tension trips; drum starts braking", 8),
+    for (t, tension), caption, dy in ((trip, "stop trips, drum starts braking", 8),
                                       ((snap_t, snap_tension), f"cable snaps {snap_t:.2f} s into the pull", 32)):
         x, y = px(t, tension)
         body.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="7" fill="{INKLING}" stroke="#0d1119" stroke-width="2"/>')
         body.append(text(x + 16, y + dy, caption, 20, INK, weight=600))
         label_x, label_y = px(4.0, 760)
-    body.append(text(label_x, label_y, "DeepSeek: 0.10 m, then 0.15 m; the crate lifts at ~1200 N", 20, INK, "end", 600))
+    body.append(text(label_x, label_y, "DeepSeek: two short pulls, the crate lifts", 20, INK, "end", 600))
     label_x, label_y = px(0.04, 1790)
     body.append(text(label_x, label_y, "Inkling: one 1 m pull", 20, INK, weight=600))
     return svg(width, height, body)
@@ -209,8 +209,8 @@ def winch_tension_chart() -> str:
 def box(x: float, y: float, w: float, h: float, title: str, lines: list[str], stroke: str = GRID,
         fill: str = PANEL) -> list[str]:
     parts = [f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="14" fill="{fill}" stroke="{stroke}" stroke-width="2"/>',
-             text(x + 24, y + 42, title, 25, INK, weight=700)]
-    parts += [text(x + 24, y + 78 + 30 * i, line, 20, INK_SECONDARY) for i, line in enumerate(lines)]
+             text(x + 28, y + 66, title, 38, INK, weight=700)]
+    parts += [text(x + 28, y + 116 + 34 * i, line, 25, INK_SECONDARY) for i, line in enumerate(lines)]
     return parts
 
 
@@ -226,57 +226,42 @@ def marker(colour: str) -> str:
 
 
 def harness_diagram() -> str:
-    width, height = 1680, 560
+    width, height = 1680, 520
     body = [f"<defs>{marker(INK_SECONDARY)}{marker(REFERENCE)}</defs>"]
-    body += box(20, 20, 470, 250, "Agent container", [
-        "Harbor runs OpenCode with the model", "sees the map, readings and traces",
-        "no sim code, seed or hidden values", "has a shell (and uses it)"], stroke=DEEPSEEK)
-    body += box(605, 20, 470, 250, "MCP tools", [
-        "get_map · observe · finish", "rover: drive_to · brake · wait",
-        "hoist: move_trolley · winch · attach", "the only way to touch the simulator"])
-    body += box(1190, 20, 470, 250, "Simulator sidecar", [
-        "MuJoCo episode, hidden physics", "time and energy budgets",
-        "reward from simulator state only:", "0, or 0.5 + 0.5 × efficiency"], stroke=REFERENCE)
-    body.append(arrow(492, 110, 603, 110))
-    body.append(arrow(603, 180, 492, 180))
-    body.append(arrow(1077, 110, 1188, 110))
-    body.append(arrow(1188, 180, 1077, 180))
-    body.append(text(547, 96, "calls", 19, INK_MUTED, "middle"))
-    body.append(text(547, 212, "readings", 19, INK_MUTED, "middle"))
-    body += box(1190, 380, 470, 150, "result.json", [
-        "written by the simulator, on finish", "agent container mounts it read-only"], stroke=REFERENCE)
-    body.append(arrow(1425, 272, 1425, 378, REFERENCE))
-    body += box(605, 380, 470, 150, "Harbor verifier", ["reads the reward from the file;", "never asks the agent"])
-    body.append(arrow(1188, 455, 1077, 455, REFERENCE))
-    body += box(20, 380, 470, 150, "Baselines", ["do-nothing: 0 on all 75 tasks", "stop-early: 0 on all 75 tasks"])
+    body += box(20, 20, 440, 170, "Agent", ["LLM in OpenCode"], stroke=DEEPSEEK)
+    body += box(620, 20, 440, 170, "MCP tools", ["the only way in"])
+    body += box(1220, 20, 440, 170, "Simulator", ["MuJoCo with hidden physics"], stroke=REFERENCE)
+    body.append(arrow(462, 80, 618, 80))
+    body.append(arrow(618, 130, 462, 130))
+    body.append(arrow(1062, 80, 1218, 80))
+    body.append(arrow(1218, 130, 1062, 130))
+    body += box(1220, 330, 440, 170, "Reward file", ["read-only for the agent"], stroke=REFERENCE)
+    body.append(arrow(1440, 192, 1440, 328, REFERENCE))
+    body += box(620, 330, 440, 170, "Verifier", ["reads the reward"])
+    body.append(arrow(1218, 415, 1062, 415, REFERENCE))
     return svg(width, height, body)
 
 
 # ------------------------------------------------------------------ fine-tuning chart
 def finetune_chart() -> str:
-    width, height = 1000, 350
-    left, right, row, top = 320, 760, 84, 30
+    left, right, row, top = 320, 760, 96, 30
     scale = (right - left) / 0.8
-    rows = [("Qwen3.6-27B untuned", 0.319, BASELINE), ("Fine-tuned, round 1", 0.297, TUNED)]
+    rows = [("Untuned", 0.319, BASELINE), ("Fine-tuned", 0.297, TUNED)]
     if ROUND_2_MEAN is not None:
         rows.append(("Fine-tuned, round 2", ROUND_2_MEAN, TUNED))
+    width, height = 1000, top + row * len(rows) + 80
     body = []
     for tick in (0, 0.2, 0.4, 0.6, 0.8):
         x = left + tick * scale
-        body.append(f'<line x1="{x}" y1="{top}" x2="{x}" y2="{top + row * 3}" stroke="{GRID}"/>')
-        body.append(text(x, top + row * 3 + 30, f"{tick:.1f}", 19, INK_MUTED, "middle"))
+        body.append(f'<line x1="{x}" y1="{top}" x2="{x}" y2="{top + row * len(rows)}" stroke="{GRID}"/>')
+        body.append(text(x, top + row * len(rows) + 30, f"{tick:.1f}", 19, INK_MUTED, "middle"))
     for i, (label, mean, colour) in enumerate(rows):
         y = top + i * row + row / 2
-        body.append(text(left - 20, y + 8, label, 23, INK, "end", 600))
+        body.append(text(left - 20, y + 9, label, 27, INK, "end", 600))
         bar = mean * scale
         body.append(f'<path d="M{left},{y - 17} h{bar - 4:.1f} a4,4 0 0 1 4,4 v26 a4,4 0 0 1 -4,4 h-{bar - 4:.1f} z" fill="{colour}"/>')
         body.append(text(left + bar + 16, y + 10, f"{mean:.3f}", 28, INK, weight=700))
-    if ROUND_2_MEAN is None:
-        y = top + 2 * row + row / 2
-        body.append(text(left - 20, y + 8, "Fine-tuned, round 2", 23, INK_SECONDARY, "end", 600))
-        body.append(f'<rect x="{left}" y="{y - 17}" width="{0.3 * scale:.1f}" height="34" rx="4" fill="none" stroke="{INK_MUTED}" stroke-width="2" stroke-dasharray="7 6"/>')
-        body.append(text(left + 0.3 * scale + 16, y + 9, ROUND_2_TEXT, 24, INK_SECONDARY, weight=700))
-    body.append(text((left + right) / 2, height - 6, "mean reward, same 75 frozen tasks", 19, INK_MUTED, "middle"))
+    body.append(text((left + right) / 2, height - 6, "mean reward on the 75 tasks", 19, INK_MUTED, "middle"))
     return svg(width, height, body)
 
 

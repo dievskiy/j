@@ -50,6 +50,7 @@ $REPLAY $EXPLOIT --dump-states $WORK/states/rover_exploit.json \
 
 # Title-slide hero at full slide resolution
 $REPLAY $INK_ROVER --size 1920x1080 --frame $ASSETS/rover_hero.png:86.5:close:'{"lookat":[20.2,2.2,0.33],"distance":8.5}'
+$REPLAY $DS_ROVER --size 1920x1080 --frame $ASSETS/rover_closing.png:59.36:close:'{"distance":6,"elevation":-14,"azimuth":150}'
 
 # PNG -> JPG keeps the deck small
 .venv/bin/python - <<'PY'

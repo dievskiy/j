@@ -39,7 +39,7 @@
 <text x="398.0" y="380.0" font-size="30" fill="#eef1f6" text-anchor="start" font-weight="700">0</text>
 <text x="432.0" y="378.0" font-size="21" fill="#aab2c2" text-anchor="start" font-weight="400">0 on all 75</text>
 <text x="356.0" y="468.0" font-size="27" fill="#eef1f6" text-anchor="end" font-weight="600">Stop-early</text>
-<text x="356.0" y="496.0" font-size="18" fill="#7b869b" text-anchor="end" font-weight="400">finish at once / half the reference</text>
+<text x="356.0" y="496.0" font-size="18" fill="#7b869b" text-anchor="end" font-weight="400">finish at once</text>
 <rect x="380" y="453.0" width="3" height="38" fill="#7d8696"/>
 <text x="398.0" y="476.0" font-size="30" fill="#eef1f6" text-anchor="start" font-weight="700">0</text>
 <text x="432.0" y="474.0" font-size="21" fill="#aab2c2" text-anchor="start" font-weight="400">0 on all 75</text>

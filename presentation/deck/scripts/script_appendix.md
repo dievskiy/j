@@ -25,6 +25,5 @@ python3 presentation/deck/scripts/make_charts.py           # SVG charts and the 
 .venv/bin/python presentation/deck/scripts/build_deck.py   # slide images, deck.pdf, index.html, script.md
 ```
 
-To fill in fine-tuning round 2, set `ROUND_2_MEAN` and `ROUND_2_TEXT` at the top of
-`scripts/deck_data.py` and rerun the last two commands. `deck.pdf` is the file to upload
-(PDF, under 20 MB).
+`deck.pdf` is the file to upload (PDF, under 20 MB). If a second fine-tuning round should be
+shown, set `ROUND_2_MEAN` in `scripts/deck_data.py` and rerun the last two commands.
