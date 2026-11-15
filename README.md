@@ -1,11 +1,11 @@
-# Test before you commit: physical-diagnosis environments for agents
+# Physical simulation environments for LLMs
 
-Agents must **actively test an uncertain physical system, at a cost proportional to the
-stakes, and then act on what the test showed**. Each episode hides a physical property
+Agents must actively test an uncertain physical system, at a cost proportional to the
+stakes, and then act on what the test showed. Each episode hides a physical property
 that changes the right action. A cheap test reveals it, and the budgets fit the right
 action plus testing, but not a blind gamble followed by a retreat.
 
-Two MuJoCo environment families, served to the agent over MCP and run with
+In this repo we have two MuJoCo environments, served to the agent over MCP and run with
 [Harbor](https://github.com/laude-institute/harbor) + OpenCode:
 
 | Environment | Task | Hidden | Cheap test |
