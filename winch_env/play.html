@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Winch yard playground</title>
+<style>
+  :root { color-scheme: dark; --bg:#14171c; --panel:#1d2229; --line:#333b46; --text:#e6e9ee; --dim:#98a2b0; --accent:#5aa9ff; --bad:#ff7a6b; --good:#5fd08a; }
+  * { box-sizing: border-box; }
+  body { margin:0; padding:16px; background:var(--bg); color:var(--text); font:14px/1.45 system-ui, sans-serif; }
+  h1 { font-size:18px; margin:0 0 12px; display:flex; gap:16px; align-items:baseline; }
+  h1 a { font-size:13px; font-weight:400; color:var(--accent); }
+  .grid { display:grid; grid-template-columns: minmax(0,1.3fr) minmax(0,1fr); gap:16px; }
+  @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:12px; }
+  .row { display:flex; flex-wrap:wrap; gap:8px; align-items:flex-end; margin-bottom:8px; }
+  label { color:var(--dim); font-size:12px; display:flex; flex-direction:column; gap:2px; }
+  input, select, button { background:#252c35; color:var(--text); border:1px solid var(--line); border-radius:6px; padding:6px 8px; font:inherit; }
+  input[type=number] { width:86px; }
+  button { cursor:pointer; }
+  button.primary { background:var(--accent); color:#06121f; border-color:var(--accent); font-weight:600; }
+  button:disabled { opacity:.5; cursor:wait; }
+  canvas { width:100%; height:auto; background:#0c0e11; border-radius:6px; cursor:crosshair; display:block; }
+  img.frame { width:100%; border-radius:6px; display:block; background:#0c0e11; }
+  .stats { display:grid; grid-template-columns: repeat(auto-fit, minmax(120px,1fr)); gap:8px; }
+  .stat { background:#252c35; border-radius:6px; padding:6px 8px; }
+  .stat b { display:block; font-size:16px; font-variant-numeric: tabular-nums; }
+  .stat span { color:var(--dim); font-size:11px; }
+  pre { margin:0; max-height:260px; overflow:auto; font:12px/1.4 ui-monospace, monospace; color:#cfd6df; white-space:pre-wrap; word-break:break-word; }
+  .note { color:var(--dim); font-size:12px; }
+  .bad { color:var(--bad); } .good { color:var(--good); }
+  table { border-collapse:collapse; width:100%; font:12px ui-monospace, monospace; }
+  td, th { text-align:right; padding:2px 6px; border-bottom:1px solid var(--line); }
+  .scroll { max-height:220px; overflow:auto; }
+  .tool { border-top:1px solid var(--line); padding-top:8px; }
+</style>
+</head>
+<body>
+<h1>Winch yard playground <a href="../">rover playground</a></h1>
+<div class="grid">
+  <div>
+    <div class="panel">
+      <div class="row">
+        <label>Yard <select id="yard"></select></label>
+        <label>Seed <input id="seed" type="number" value="0" step="1"></label>
+        <label>Difficulty <input id="difficulty" type="number" value="0.5" min="0" max="1" step="0.1"></label>
+        <button id="reset">New episode</button>
+        <button id="reveal">Reveal hidden values</button>
+      </div>
+      <p id="task" class="note" style="margin:0 0 8px"></p>
+      <canvas id="yardview" width="900" height="380"></canvas>
+      <p class="note">Side view. Click to choose a trolley target. Yellow is the rail and trolley, green the goal, grey the platform and any obstacle. Brown squares are cargo, blue the reference weight, red a destroyed crate; the hooked crate is outlined.</p>
+      <div class="row tool">
+        <label>Trolley x <input id="tx" type="number" step="0.1"></label>
+        <label>Speed limit (m/s) <input id="tspeed" type="number" value="2" min="0.05" max="2" step="0.1"></label>
+        <label>Max duration (s) <input id="tdur" type="number" value="30" min="0.02" max="60" step="1"></label>
+        <button class="primary" id="move">move_trolley</button>
+      </div>
+      <div class="row">
+        <label>Length change (m, &minus; reels in) <input id="wlen" type="number" value="-0.5" min="-8" max="8" step="0.05"></label>
+        <label>Speed limit (m/s) <input id="wspeed" type="number" value="0.05" min="0.01" max="1" step="0.01"></label>
+        <label>Max duration (s) <input id="wdur" type="number" value="30" min="0.02" max="60" step="1"></label>
+        <label>Stop tension (N, blank for none) <input id="wstop" type="number" step="10"></label>
+        <button class="primary" id="winch">winch</button>
+      </div>
+      <div class="row">
+        <button id="attach">attach</button>
+        <button id="release">release</button>
+        <label>Wait (s) <input id="waitfor" type="number" value="1" min="0.02" max="60" step="0.5"></label>
+        <button id="wait">wait</button>
+        <button id="finish">finish</button>
+      </div>
+    </div>
+    <div class="panel" style="margin-top:16px">
+      <img id="frame" class="frame" alt="Rendered yard">
+    </div>
+  </div>
+  <div>
+    <div class="panel">
+      <div class="stats" id="stats"></div>
+      <p id="result" class="note" style="margin:10px 0 0"></p>
+      <pre id="hidden" hidden></pre>
+    </div>
+    <div class="panel" style="margin-top:16px">
+      <b>Last command trace (noisy readings)</b>
+      <div class="scroll"><table id="trace"></table></div>
+    </div>
+    <div class="panel" style="margin-top:16px">
+      <b>Call log</b>
+      <pre id="log"></pre>
+    </div>
+  </div>
+</div>
+<script>
+const $ = id => document.getElementById(id);
+const X_RANGE = [-10, 14], Z_RANGE = [-0.3, 8.6];
+let state = null;
+
+const view = (() => {
+  const c = $('yardview');
+  const scale = Math.min(c.width / (X_RANGE[1] - X_RANGE[0]), c.height / (Z_RANGE[1] - Z_RANGE[0]));
+  const ox = (c.width - scale * (X_RANGE[1] - X_RANGE[0])) / 2;
+  return { px: x => ox + (x - X_RANGE[0]) * scale, pz: z => c.height - (z - Z_RANGE[0]) * scale,
+           wx: px => X_RANGE[0] + (px - ox) / scale, scale };
+})();
+
+function box(g, x0, x1, z0, z1) {
+  g.fillRect(view.px(x0), view.pz(z1), (x1 - x0) * view.scale, (z1 - z0) * view.scale);
+}
+
+function draw() {
+  const o = state.observation, map = o.map, c = $('yardview'), g = c.getContext('2d');
+  g.clearRect(0, 0, c.width, c.height);
+  g.fillStyle = '#3a3f47'; box(g, X_RANGE[0], X_RANGE[1], Z_RANGE[0], 0);              // floor
+  g.fillStyle = '#6b7079'; box(g, map.platform.x[0], map.platform.x[1], 0, map.platform.top_height);
+  g.fillStyle = 'rgba(60,220,110,.8)';
+  box(g, map.goal.x - map.goal.half_width, map.goal.x + map.goal.half_width, map.goal.height, map.goal.height + 0.08);
+  if (map.obstacle) { g.fillStyle = '#6b7079'; box(g, map.obstacle.x - 0.2, map.obstacle.x + 0.2, 0, map.obstacle.top_height); }
+  const [r0, r1] = map.hoist.trolley_range;
+  g.fillStyle = '#c9a227'; box(g, r0 - 0.5, r1 + 0.5, map.rail_height, map.rail_height + 0.2);   // rail
+  const kinds = Object.fromEntries(map.crates.map(cr => [cr.name, cr]));
+  for (const [name, cr] of Object.entries(o.crates)) {
+    const reference = kinds[name] && kinds[name].cargo === false;
+    g.fillStyle = cr.destroyed ? '#c0392b' : reference ? '#4a7fc1' : '#b58a55';
+    box(g, cr.x - 0.5, cr.x + 0.5, cr.height, cr.height + 1);
+    if (o.attached === name) { g.strokeStyle = '#ffd24a'; g.lineWidth = 2;
+      g.strokeRect(view.px(cr.x - 0.5), view.pz(cr.height + 1), view.scale, view.scale); }
+    g.fillStyle = '#e6e9ee'; g.font = '11px system-ui'; g.textAlign = 'center';
+    g.fillText(name.replace('crate_', '#'), view.px(cr.x), view.pz(cr.height + 0.45));
+  }
+  const drumZ = map.hoist.drum_height;
+  g.strokeStyle = o.episode.ended === 'cable_snapped' ? '#ff7a6b' : '#d8dde4'; g.lineWidth = 1.5;
+  g.beginPath(); g.moveTo(view.px(o.trolley_x), view.pz(drumZ)); g.lineTo(view.px(o.hook.x), view.pz(o.hook.height)); g.stroke();
+  g.fillStyle = '#ffd24a'; box(g, o.trolley_x - 0.35, o.trolley_x + 0.35, drumZ, map.rail_height + 0.1);  // trolley
+  g.beginPath(); g.arc(view.px(o.hook.x), view.pz(o.hook.height), 4, 0, 7); g.fill();          // hook
+  const tx = parseFloat($('tx').value);
+  if (isFinite(tx)) { g.strokeStyle = '#ff7a6b'; g.setLineDash([5, 4]); g.beginPath();
+    g.moveTo(view.px(tx), view.pz(map.rail_height + 0.6)); g.lineTo(view.px(tx), view.pz(0)); g.stroke(); g.setLineDash([]); }
+}
+
+function stat(label, value, cls = '') { return `<div class="stat"><b class="${cls}">${value}</b><span>${label}</span></div>`; }
+
+function render(result) {
+  const o = state.observation, map = o.map;
+  const task = map.task ? map.task.note : `Deliver one crate of at least ${map.hoist.required_payload_kg} kg.`;
+  $('task').textContent = `Task: ${task}  Budgets: ${map.budgets.time_s} s, ${map.budgets.energy_j} J.`;
+  const ended = o.episode.ended;
+  $('stats').innerHTML =
+    stat('time (s)', o.t.toFixed(2)) + stat('time left (s)', o.time_remaining.toFixed(1)) +
+    stat('energy left (J)', Math.round(o.energy_remaining)) +
+    stat('tension reading (N)', o.tension.toFixed(1)) +
+    stat('cable length (m)', o.cable_length.toFixed(3)) +
+    stat('hook x, height (m)', `${o.hook.x.toFixed(2)}, ${o.hook.height.toFixed(2)}`) +
+    stat('attached', o.attached || 'none') +
+    stat('episode', ended ? ended : o.episode.finished ? 'finished' : 'running', ended ? 'bad' : '');
+  if (result) {
+    const failed = result.ok === false || result.error;
+    $('result').className = 'note ' + (failed ? 'bad' : result.delivered ? 'good' : '');
+    $('result').textContent = JSON.stringify(result);
+    $('log').textContent = `t=${o.t.toFixed(2)}  ${JSON.stringify(result)}\n` + $('log').textContent;
+  }
+  const trace = (o.last_command && o.last_command.trace) || [];
+  $('trace').innerHTML = '<tr><th>t</th><th>tension</th><th>cable</th><th>trolley x</th><th>hook x</th><th>hook z</th></tr>' +
+    trace.map(s => `<tr><td>${s.t}</td><td>${s.tension}</td><td>${s.cable_length}</td><td>${s.trolley_x}</td><td>${s.hook_x}</td><td>${s.hook_height}</td></tr>`).join('');
+  draw();
+  $('frame').src = `frame.png?_=${Date.now()}`;
+}
+
+async function post(tool, body) {
+  document.querySelectorAll('button').forEach(b => b.disabled = true);
+  try {
+    const r = await fetch('api/' + tool, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(body || {}) });
+    const data = await r.json();
+    if (data.error) { $('result').className = 'note bad'; $('result').textContent = data.error; return; }
+    state = data;
+    if (tool === 'reset') { $('log').textContent = ''; $('hidden').hidden = true; $('tx').value = ''; $('result').textContent = ''; }
+    render(tool === 'reset' ? null : data.last_result);
+  } finally { document.querySelectorAll('button').forEach(b => b.disabled = false); }
+}
+
+$('yardview').addEventListener('click', e => {
+  const c = $('yardview'), r = c.getBoundingClientRect();
+  $('tx').value = view.wx((e.clientX - r.left) * c.width / r.width).toFixed(2);
+  draw();
+});
+$('reset').onclick = () => post('reset', { variation: $('yard').value, seed: +$('seed').value, difficulty: +$('difficulty').value });
+$('move').onclick = () => post('move_trolley', { x: +$('tx').value, speed_limit: +$('tspeed').value, max_duration: +$('tdur').value });
+$('winch').onclick = () => post('winch', { length_change: +$('wlen').value, speed_limit: +$('wspeed').value, max_duration: +$('wdur').value,
+                                           stop_tension: $('wstop').value === '' ? null : +$('wstop').value });
+$('attach').onclick = () => post('attach');
+$('release').onclick = () => post('release');
+$('wait').onclick = () => post('wait', { duration: +$('waitfor').value });
+$('finish').onclick = () => post('finish');
+$('reveal').onclick = async () => { const h = $('hidden'); h.textContent = JSON.stringify(await (await fetch('api/hidden')).json(), null, 1); h.hidden = false; };
+fetch('api/yards').then(r => r.json()).then(y => {
+  $('yard').innerHTML = y.yards.map(n => `<option>${n}</option>`).join('');
+  return fetch('api/state');
+}).then(r => r.json()).then(s => { state = s; $('yard').value = s.variation; $('seed').value = s.seed; render(null); });
+</script>
+</body>
+</html>
